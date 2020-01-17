@@ -19,22 +19,13 @@ RUN \
  apt-get update && \
  apt-get install -y \
 	gnupg \
-	python && \
- curl -s https://bintray.com/user/downloadSubjectPublicKey?username=fedarovich | apt-key add - && \
- apt-key adv --keyserver hkp://keyserver.ubuntu.com:11371 --recv-keys 7CA69FC4 && \
- echo "deb http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu bionic main" >> /etc/apt/sources.list.d/qbitorrent.list && \
- echo "deb-src http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu bionic main" >> /etc/apt/sources.list.d/qbitorrent.list && \
- echo "deb https://dl.bintray.com/fedarovich/qbittorrent-cli-debian bionic main" >> /etc/apt/sources.list.d/qbitorrent.list && \
- echo "**** install packages ****" && \
- if [ -z ${QBITTORRENT_VERSION+x} ]; then \
-	QBITTORRENT_VERSION=$(curl -sX GET http://ppa.launchpad.net/qbittorrent-team/qbittorrent-stable/ubuntu/dists/bionic/main/binary-amd64/Packages.gz | gunzip -c \
-	|grep -A 7 -m 1 "Package: qbittorrent-nox" | awk -F ": " '/Version/{print $2;exit}');\
- fi && \
+	python \
+    software-properties-common && \
+ add-apt-repository ppa:poplite/qbittorrent-enhanced && \
  apt-get update && \
  apt-get install -y \
 	p7zip-full \
-	qbittorrent-cli \
-	qbittorrent-nox=${QBITTORRENT_VERSION} \
+	qbittorrent-enhanced-nox \
 	unrar \
 	geoip-bin \
 	unzip && \
