@@ -47,6 +47,8 @@ RUN \
 	/var/lib/apt/lists/* \
 	/var/tmp/*
 
+RUN [ "cross-build-end" ] 
+
 # add local files
 COPY root/ /
 
