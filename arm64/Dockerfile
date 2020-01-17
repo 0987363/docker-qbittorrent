@@ -1,4 +1,4 @@
-FROM lsiobase/ubuntu:arm32v7-bionic
+FROM lsiobase/ubuntu:arm64v8-bionic
 
 # set version label
 ARG BUILD_DATE
@@ -13,15 +13,13 @@ ENV HOME="/config" \
 XDG_CONFIG_HOME="/config" \
 XDG_DATA_HOME="/config"
 
-RUN [ "cross-build-start" ]
-
 # add repo and install qbitorrent
 RUN \
  echo "***** install base package ****" && \
  apt-get update && \
  apt-get install -y \
 	gnupg \
-	python
+	python 
 
 RUN \
  echo "***** add qbitorrent repositories ****" && \
@@ -34,10 +32,10 @@ RUN \
  apt-get update && \
  apt-get install -y \
 	p7zip-full \
-	qbittorrent-enhanced-nox:armhf \
+	qbittorrent-enhanced-nox:arm64 \
 	unrar \
 	geoip-bin \
-	unzip
+	unzip 
 
 RUN \
  echo "**** cleanup ****" && \
@@ -46,8 +44,6 @@ RUN \
 	/tmp/* \
 	/var/lib/apt/lists/* \
 	/var/tmp/*
-
-RUN [ "cross-build-end" ] 
 
 # add local files
 COPY root/ /
