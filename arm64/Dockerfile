@@ -1,11 +1,11 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:arm64v8-focal
+FROM lsiobase/ubuntu:arm64v8-bionic
 
 # set version label
 ARG BUILD_DATE
 ARG VERSION
 ARG QBITTORRENT_VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="thelamer"
+LABEL maintainer="sparklyballs, thelamer"
 
 # environment settings
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -19,14 +19,13 @@ RUN \
  apt-get update && \
  apt-get install -y \
 	gnupg \
-	python3 
-    
-    
+	python 
+
 RUN \
  echo "***** add qbitorrent repositories ****" && \
  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 65121492 && \
- echo "deb http://ppa.launchpad.net/poplite/qbittorrent-enhanced/ubuntu focal main" >> /etc/apt/sources.list.d/qbitorrent.list && \
- echo "deb-src http://ppa.launchpad.net/poplite/qbittorrent-enhanced/ubuntu focal main" >> /etc/apt/sources.list.d/qbitorrent.list
+ echo "deb http://ppa.launchpad.net/poplite/qbittorrent-enhanced/ubuntu bionic main" >> /etc/apt/sources.list.d/qbitorrent.list && \
+ echo "deb-src http://ppa.launchpad.net/poplite/qbittorrent-enhanced/ubuntu bionic main" >> /etc/apt/sources.list.d/qbitorrent.list
 
 RUN \
  echo "**** start install qbittorrent-ee ****" && \
@@ -37,7 +36,6 @@ RUN \
 	unrar \
 	geoip-bin \
 	unzip 
-
 
 RUN \
  echo "**** cleanup ****" && \
