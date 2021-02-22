@@ -1,11 +1,11 @@
-FROM lsiobase/ubuntu:bionic
+FROM ghcr.io/linuxserver/baseimage-ubuntu:focal
 
 # set version label
 ARG BUILD_DATE
 ARG VERSION
 ARG QBITTORRENT_VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="sparklyballs, thelamer"
+LABEL maintainer="thelamer"
 
 # environment settings
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -19,13 +19,13 @@ RUN \
  apt-get update && \
  apt-get install -y \
 	gnupg \
-	python
+	python3
 
 RUN \
  echo "***** add qbitorrent repositories ****" && \
  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 65121492 && \
- echo "deb http://ppa.launchpad.net/poplite/qbittorrent-enhanced/ubuntu bionic main" >> /etc/apt/sources.list.d/qbitorrent.list && \
- echo "deb-src http://ppa.launchpad.net/poplite/qbittorrent-enhanced/ubuntu bionic main" >> /etc/apt/sources.list.d/qbitorrent.list
+ echo "deb http://ppa.launchpad.net/poplite/qbittorrent-enhanced/ubuntu focal main" >> /etc/apt/sources.list.d/qbitorrent.list && \
+ echo "deb-src http://ppa.launchpad.net/poplite/qbittorrent-enhanced/ubuntu focal main" >> /etc/apt/sources.list.d/qbitorrent.list
 
 RUN \
  echo "**** start install qbittorrent-ee ****" && \
